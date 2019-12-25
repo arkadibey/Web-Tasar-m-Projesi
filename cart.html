@@ -1,0 +1,275 @@
+<html>
+<head>
+<link rel="stylesheet" href="bootstrap//css/bootstrap.min.css" >
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet">
+<title>JohnKarabayProduction</title>
+<style>
+body {
+  background: url('images/bg.jpg') no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+  font-family: "Times New Roman", Times, serif;
+  font-size: x-large;
+  padding-left: 10%;
+  padding-top: 10%;
+  padding-right:10%;
+}
+.opacity-1{
+    background: transparent !important;
+}
+.opacity-70{
+  opacity: 70%;
+}
+.opacity-70:hover{
+  opacity: 100%;
+}
+.border1{
+    border:2px solid white;
+    background-image:linear-gradient(to bottom right, grey, black);
+    color: #ffff !important;
+    width:10%;
+    text-align: center;
+}
+.white-colors{
+    color: #ffff !important;  
+    text-align: center;
+}
+img {
+  height:100%;
+}
+
+.cover {
+  width: 260px;
+  object-fit: cover;
+}
+.quantity {
+    float: left;
+    margin-right: 15px;
+    background-color: #eee;
+    position: relative;
+    width: 80px;
+    overflow: hidden
+}
+
+.quantity input {
+    margin: 0;
+    text-align: center;
+    width: 15px;
+    height: 15px;
+    padding: 0;
+    float: right;
+    color: #000;
+    font-size: 20px;
+    border: 0;
+    outline: 0;
+    background-color: #F6F6F6
+}
+
+.quantity input.qty {
+    position: relative;
+    border: 0;
+    width: 100%;
+    height: 40px;
+    padding: 10px 25px 10px 10px;
+    text-align: center;
+    font-weight: 400;
+    font-size: 15px;
+    border-radius: 0;
+    background-clip: padding-box
+}
+
+.quantity .minus, .quantity .plus {
+    line-height: 0;
+    background-clip: padding-box;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    color: #bbb;
+    font-size: 20px;
+    position: absolute;
+    height: 50%;
+    border: 0;
+    right: 0;
+    padding: 0;
+    width: 25px;
+    z-index: 3
+}
+
+.quantity .minus:hover, .quantity .plus:hover {
+    background-color: #dad8da
+}
+
+.quantity .minus {
+    bottom: 0
+}
+.shopping-cart {
+    margin-top: 20px;
+}
+</style>
+</head>
+<body>
+    <!-- navigation-->
+    <nav style="margin-left:10%;margin-right:10%;margin-top: 3%;"class="navbar navbar-expand-lg fixed-top navbar-light bg-light  opacity-1">
+      <a class="navbar-brand border1 rounded-lg opacity-70 " style="height:55px;line-height: 40px;font-size:1.5rem;"  href="index.html">AnaSayfa</a>
+      <button class="navbar-toggler " style="background-color: white !important;" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+
+        <span class="navbar-toggler-icon "></span>
+      </button>
+    
+      <div class="collapse navbar-collapse   " id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active border1 opacity-70 rounded-lg"style="margin-right:2%;width:60%">
+            <a class="nav-link white-colors "  href="category.html">Kategori <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item border1 opacity-70 rounded-lg"style="margin-right:2%;width:60%">
+            <a class="nav-link white-colors" href="cart.html">Sepet</a>
+          </li>
+          
+          <li class="nav-item border1 opacity-70"style="width:60%">
+            <a class="nav-link white-colors" href="aboutus.html">Hakkımızda</a>
+          </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0 opacity-70">
+          <input class="form-control mr-sm-5 border1"type="search" placeholder="Ara" style="width:63%" aria-label="Search">
+          <button class="btn btn-outline-success my-2 my-sm-0 border1"style="width:20%" type="submit">Ara</button>
+        </form>
+      </div>
+    </nav>
+  <!-- nav bitiş-->
+
+
+<!--content-->
+<div class="container">
+  <div class="card shopping-cart">
+           <div class="card-header bg-dark text-light">
+               <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+              Sepet
+               <a href="category.html" class="btn btn-outline-info btn-sm pull-right">Alışverişe devam et</a>
+               <div class="clearfix"></div>
+           </div>
+           <div class="card-body" id="result">
+                 
+                   <!-- END PRODUCT --> 
+           </div>
+           <div class="card-footer">
+         
+               <div class="pull-right" style="margin: 10px">
+                   <a href="" class="btn btn-success pull-right">Satın al</a>
+                   <div class="pull-right" style="margin: 5px">
+                       Toplam fiyat: <b id='toplamfiyat'></b>
+                   </div>
+               </div>
+           </div>
+       </div>
+</div>
+<!--content bitiş-->
+</body>
+<script>
+    var data="";
+    var toplam=0;
+    if (sessionStorage.getItem("1-ad")!==null) {
+    for(i=0;i<10;i++){
+      if(sessionStorage.getItem((i+1)+"-ad")!==null){
+  data+='<div class="row"><div class="col-12 col-sm-12 col-md-2 text-center"><img class="img-responsive" src="images/watch/'+sessionStorage.getItem((i+1)+"-resim")+'" alt="prewiew" width="120" height="80">';
+  data+='</div><div class="col-12 text-sm-center col-sm-12 text-md-left col-md-6"><h4 class="product-name"><strong>'+sessionStorage.getItem((i+1)+"-ad")+'</strong></h4><h4><small>'+sessionStorage.getItem((i+1)+"-aciklama")+'</small></h4>';
+  data+='</div><div class="col-12 col-sm-12 text-sm-center col-md-4 text-md-right row"><div class="col-3 col-sm-3 col-md-6 text-md-right" style="padding-top: 5px"><h6>';
+  data+=' <strong>'+Number(sessionStorage.getItem((i+1)+"-fiyat"))  +' ₺  <span class="text-muted">x</span></strong></h6></div><div class="col-4 col-sm-4 col-md-4"><div class="quantity"><input type="button" value="+" onclick="ekle1('+(i+1)+')"class="plus">';
+  data+='  <input type="number" step="1" max="99" min="1" value="'+(Number(sessionStorage.getItem((i+1)+"-miktar")))+'" title="Qty" class="qty"size="4"><input type="button" value="-" class="minus" onclick="cikar1('+(i+1)+')"></div></div>';
+  data+=' <div class="col-2 col-sm-2 col-md-2 text-right">  <button type="button" class="btn btn-outline-danger btn-xs" onclick="de1('+(1+i)+')"><i class="fa fa-trash" aria-hidden="true">';
+  data+='  </i>  </button> </div> </div></div><hr>';
+  toplam+=((Number(sessionStorage.getItem((i+1)+"-fiyat")))*(Number(sessionStorage.getItem((i+1)+"-miktar"))))
+}
+    }
+  }
+    else
+    {
+      data="<div class='row' ><div class='col text-center'>Sepet Boş</div></div><hr>";
+    }
+    document.getElementById("result").innerHTML = data;
+    document.getElementById("toplamfiyat").innerHTML = toplam+" ₺";
+    
+     </script>
+     <script>
+   function ekle1(id){  if(Number(sessionStorage.getItem(id+"-miktar"))<100) {
+      sessionStorage.setItem(id+"-miktar", Number(sessionStorage.getItem(id+"-miktar"))+1);}
+      location.reload();
+    }
+    
+   function cikar1(id){
+    if(Number(sessionStorage.getItem(id+"-miktar"))>0) {
+      sessionStorage.setItem(id+"-miktar", Number(sessionStorage.getItem(id+"-miktar"))-1);
+     }
+     location.reload();
+    }
+    function de1(id){
+    if(Number(sessionStorage.getItem(id+"-ad"))!==null) {
+      sessionStorage.removeItem(id+"-ad");
+      sessionStorage.removeItem(id+"-miktar");
+      sessionStorage.removeItem(id+"-fiyat");
+      sessionStorage.removeItem(id+"-resim");
+      sessionStorage.removeItem(id+"-aciklama");
+      for(i=id;i<=10;i++){
+       if( sessionStorage.getItem((i+1)+"-ad")!==null){
+        sessionStorage.setItem(i+"-ad",  sessionStorage.getItem((i+1)+"-ad"));
+      sessionStorage.setItem(id+"-miktar",  sessionStorage.getItem((i+1)+"-miktar"));
+      sessionStorage.setItem(id+"-fiyat",  sessionStorage.getItem((i+1)+"-fiyat"));
+      sessionStorage.setItem(id+"-resim",  sessionStorage.getItem((i+1)+"-resim"));
+      sessionStorage.setItem(id+"-aciklama",  sessionStorage.getItem((i+1)+"-aciklama"));
+	   sessionStorage.removeItem((i+1)+"-ad");
+      sessionStorage.removeItem((i+1)+"-miktar");
+      sessionStorage.removeItem((i+1)+"-fiyat");
+      sessionStorage.removeItem((i+1)+"-resim");
+      sessionStorage.removeItem((i+1)+"-aciklama");
+    }
+      }
+     }
+     location.reload();
+    }
+     function ekle(a,b,c,d){
+    if (sessionStorage.getItem("1-ad")==null) {
+    sessionStorage.setItem("1-ad", a);
+    sessionStorage.setItem("1-miktar", Number(sessionStorage.getItem("1-miktar"))+1);
+    sessionStorage.setItem("1-fiyat", b);
+    sessionStorage.setItem("1-aciklama", c);
+    sessionStorage.setItem("1-resim", d);
+    sessionStorage.setItem("count", 2);
+    }
+    else{
+      if(Number(sessionStorage.getItem("count"))<=10){
+        var bollen=0;
+        var position=0;
+        for(i=0;i<10;i++){
+        if(sessionStorage.getItem((i+1)+"-ad")==a){
+    bollen=1;
+    position=i;
+  }
+  }
+if(bollen==0){
+  sessionStorage.setItem(sessionStorage.getItem("count")+"-ad", a);
+    sessionStorage.setItem(sessionStorage.getItem("count")+"-miktar",1);
+    sessionStorage.setItem(sessionStorage.getItem("count")+"-fiyat", b);
+    sessionStorage.setItem(sessionStorage.getItem("count")+"-aciklama", c);
+    sessionStorage.setItem(sessionStorage.getItem("count")+"-resim", d);
+    sessionStorage.setItem("count", Number(sessionStorage.getItem("count"))+1);
+  }
+  else{
+    sessionStorage.setItem((position+1)+"-miktar", Number(sessionStorage.getItem((position+1)+"-miktar"))+1);
+  }
+  }
+  else{
+    sessionStorage.setItem("count", 1);
+    sessionStorage.setItem(sessionStorage.getItem("count")+"-ad", a);
+    sessionStorage.setItem(sessionStorage.getItem("count")+"-miktar",1);
+    sessionStorage.setItem(sessionStorage.getItem("count")+"-fiyat", b);
+    sessionStorage.setItem(sessionStorage.getItem("count")+"-aciklama", c);
+    sessionStorage.setItem(sessionStorage.getItem("count")+"-resim", d);
+    
+
+  }
+    }
+  }
+       </script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+</html>
